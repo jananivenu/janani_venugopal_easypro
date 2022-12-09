@@ -1,0 +1,14 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "cucumber.features": [
+    
+        "src/test/**/*.feature",
+        "features/**/*.feature",
+        "tests/**/*.feature",
+        "*specs*/**/.feature"
+    ],
+    "java.test.config": {
+    
+    },
+    "maven.view": "hierarchical"
+}

@@ -1,6 +1,6 @@
 Feature: Time Entry functionality Under Project Operations application
 
-Scenario 1: User creates New Time Entry and submits for approval
+Scenario: User creates New Time Entry and submits for approval
 
 Given User is in Project Operations tab
 
