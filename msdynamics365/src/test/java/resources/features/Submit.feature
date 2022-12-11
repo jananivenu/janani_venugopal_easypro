@@ -1,5 +1,6 @@
 Feature: Time Entry functionality Under Project Operations application
 
+@order=1
 Scenario: User creates New Time Entry and submits for approval
 
 Given User is in Project Operations tab

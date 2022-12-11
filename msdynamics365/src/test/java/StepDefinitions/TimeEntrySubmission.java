@@ -1,5 +1,6 @@
 package StepDefinitions;
 
+import java.time.Duration;
 //import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
@@ -11,43 +12,40 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import TestPages.LoginPage;
 import TestPages.TimeEntrytab;
-//import io.cucumber.java.Before;
-//import io.cucumber.java.en.And;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-//import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class TimeEntrySubmission {
-    WebDriver driver  = null;
+
+import utils.BaseTest;
+
+public class TimeEntrySubmission extends BaseTest{
     
+    BaseTest bt;
+    private WebDriver driver = Hooks.driver;
     TimeEntrytab tab,tab1,tab2;
-
-     
+    
     @Given("^User is in Project Operations tab$")
     public void user_is_in_Project_Operations_tab(){
-        System.out.println("Starting the Application");
-        System.out.println(System.getProperty("user.dir")+"\\chromedriver.exe");
-    System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"\\chromedriver.exe")
-    driver = new ChromeDriver();
+
     LoginPage login = new LoginPage(driver);
     System.out.println(driver);
     System.out.println("Navigating to the MSDynamics365 website");
-    driver.get("https://poqa.crm4.dynamics.com");
-    driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
-    driver.manage().window().maximize();
+    driver.get(prop.getProperty("URL"));
+
     System.out.println("Logging in with user credentials");
-        login.enteruseremail("best.candidate@promx.net");
+        login.enteruseremail(prop.getProperty("usr_email"));
         login.enterNext(); 
         login.enterpasswordclick();
-        login.enterpassword("gwp@W0ER");
+        login.enterpassword(prop.getProperty("usr_password"));
         login.submit();
         System.out.println(driver.getCurrentUrl());
         login.AppSelection();
         System.out.println("Navigating to the Project Operations app");      
     }
  
-    @Given("Clicks on the Time Entry tab")
+    @And("^Clicks on the Time Entry tab$")
     public void Clicks_on_the_Time_Entry_tab() {
        
         
@@ -72,7 +70,7 @@ public class TimeEntrySubmission {
         tab.select_project_task();
         tab.enter_description();
         tab.save_entryand_close();
-        System.out.println("Createdand saved the new Time entry");
+        System.out.println("Created and saved the new Time entry");
      }
 
      @Then("^Submits the entry for approval$")

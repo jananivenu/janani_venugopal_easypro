@@ -11,7 +11,7 @@ import org.openqa.selenium.interactions.Actions;
 public class TimeEntrytab {
     
     WebDriver driver;
-    List<WebElement> elements;
+    
 
     By time_entry_tab=By.xpath("//span[text()='Time Entries']");
     
@@ -45,9 +45,11 @@ public class TimeEntrytab {
 
     By save_entry= By.xpath("//span[text()='Save and Close']");
 
-    By select_entry=By.xpath("//div[@class='grid-cell-content']/button[contains (@aria-label,'Select all values in a row')]");
+    By select_entry=By.xpath("//button[contains(@aria-label,'Select all values in a row')]");
      
     By submit_entry=By.xpath("//button[@name='Submit']");
+
+    By approval_status=By.xpath("//div[contains(@aria-label,'Entry Status Approved')]");
 
     public TimeEntrytab(WebDriver driver)
     {
@@ -64,18 +66,22 @@ public class TimeEntrytab {
     }
      public void set_start_date()
      {
+      driver.findElement(start_date).clear();
       driver.findElement(start_date).sendKeys("09-12-2022");
      }   
      public void set_start_time()
      {
+      driver.findElement(start_time).clear();
       driver.findElement(start_time).sendKeys("09:00");
      }  
      public void set_end_date()
      {
+      driver.findElement(end_date).clear();
       driver.findElement(end_date).sendKeys("09-12-2022");
      }   
      public void set_end_time()
      {
+      driver.findElement(end_time).clear();
       driver.findElement(end_time).sendKeys("10:00");
      } 
      public void set_duration()
@@ -92,6 +98,8 @@ public class TimeEntrytab {
        driver.findElement(project_lookup).click();
        driver.findElement(project_lookup).sendKeys("sail inc");
        Actions act = new Actions(driver);
+       act.keyDown(Keys.ENTER);
+       act.keyUp(Keys.ENTER);
        act.keyDown(Keys.ARROW_DOWN);
        act.keyUp(Keys.ARROW_DOWN);
        act.keyDown(Keys.ENTER);
@@ -103,6 +111,8 @@ public class TimeEntrytab {
         driver.findElement(project_task)
         .sendKeys("design");
         Actions act = new Actions(driver);
+        act.keyDown(Keys.ENTER);
+        act.keyUp(Keys.ENTER);
         act.keyDown(Keys.ARROW_DOWN);
         act.keyUp(Keys.ARROW_DOWN);
         act.keyDown(Keys.ENTER);
@@ -122,15 +132,26 @@ public class TimeEntrytab {
      public void select_entry_for_submission()
 
      {
-         elements = driver.findElements(select_entry);
-         elements.get(elements.size()-1).click();
-        
+        List<WebElement> tableElement = driver.findElements(select_entry); // findElements will return a list of table elements
+         for (WebElement webElement : tableElement) 
+       {
+         System.out.println("inside checkbox");
+          //rowData is the data value which we are looking for to perform operation on
+         webElement.click();
+         //elements = driver.findElements(select_entry);
 
+         //elements.get(elements.size()-1).click();
+       }
      }
      public void submit_entry_for_approval()
 
      {
         driver.findElement(submit_entry).click();
+     }
+
+     public boolean validate_approval()
+     {
+         return driver.findElement(approval_status).isDisplayed();
      }
 
 }
