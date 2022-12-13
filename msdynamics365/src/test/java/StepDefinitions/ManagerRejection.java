@@ -44,15 +44,15 @@ public class ManagerRejection extends BaseTest
         rtab.enter_approval_tab();
         System.out.println("Enter Approvals tab");
     }
-    @When("^User rejects the submitted Time Entry$")
-    public void user_rejects_the_submitted_Time_Entry() {
+    @When("^Manager rejects the submitted Time Entry$")
+    public void manager_rejects_the_submitted_Time_Entry() {
         rtab1 = new Approvaltab(driver);
         rtab1.timeentry_approval();
         driver.quit();
     }
     @Then("^User Validates the  rejection in Time Entry page$")
     public void user_Validates_the_rejection_in_Time_Entry_page() {
-        // Write code here that turns the phrase above into concrete actions
+        
     }
     
 }

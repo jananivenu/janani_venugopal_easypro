@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,6 +17,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
 import utils.BaseTest;
 
 public class ManagerApproval extends BaseTest 
@@ -43,6 +45,7 @@ public class ManagerApproval extends BaseTest
             login.submit();
             System.out.println(driver.getCurrentUrl());
             login.AppSelection();
+            Assert.assertTrue("Navigating to the Project Operations app", login.AppSelection());
             System.out.println("Navigating to the Project Operations app");   
 
     } 
@@ -52,7 +55,7 @@ public class ManagerApproval extends BaseTest
     public void Clicks_on_the_Approvals_tab() {
         atab = new Approvaltab(driver);
         atab.enter_approval_tab();
-        System.out.println("Enter Approvals tab");
+        Assert.assertTrue("Entered Approvals tab",enter_approval_tab());
     }
 
     @When("^User approves the submitted Time Entry$")
@@ -60,8 +63,8 @@ public class ManagerApproval extends BaseTest
         atab1 = new Approvaltab(driver);
         atab1.timeentry_approval();
         driver.findElement(By.xpath("//div[@id='mectrl_headerPicture' and text()='BC']"));
-        driver.findElement(By.xpath("//button[@id='mectrl_body_signOut' and text()='Sign out']");"
-        //driver.quit();
+        driver.findElement(By.xpath("//button[@id='mectrl_body_signOut' and text()='Sign out']"));
+        driver.navigate().refresh();
     }
 
     @Then("^User Validates the  approval in Time Entry page$")

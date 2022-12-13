@@ -7,6 +7,6 @@ Given Manager is in Project Operations App
 
 And Clicks on the Approvals tab to reject the entry
 
-When User rejects the submitted Time Entry
+When Manager rejects the submitted Time Entry
 
 Then User Validates the  rejection in Time Entry page

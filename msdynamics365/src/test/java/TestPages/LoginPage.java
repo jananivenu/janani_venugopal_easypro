@@ -41,13 +41,18 @@ public class LoginPage {
     {
         driver.findElement(signin_button).click();
     }
-    public void AppSelection()
+    public boolean AppSelection()
     {
        // WebDriverWait wait = new WebDriverWait(driver,30);
        // wait.until(ExpectedConditions.visibilityOfElementLocated(project_page));
-       driver.switchTo().frame("AppLandingPage");
+        driver.switchTo().frame("AppLandingPage");
+        if((driver.findElement(project_page).isEnabled()))
+        {
         driver.findElement(project_page).click();
         driver.switchTo().defaultContent();
+        return true;
+        }
+        else return false;
     }
 
     public void enterpasswordclick()

@@ -52,9 +52,14 @@ public class Approvaltab {
         this.driver=driver;
     }
 
-    public void enter_approval_tab()
+    public boolean enter_approval_tab()
     {
-        driver.findElement(approvals_tab).click();
+        if(driver.findElement(approvals_tab).isEnabled)
+        {
+        driver.findElement(approvals_tab).click(); 
+        return true;
+        }
+        else return false;
     }
 
     public void sort_group_as_resource()
@@ -91,18 +96,17 @@ public class Approvaltab {
         driver.findElement(filter_by_value).click();
         driver.findElement(resource_name).click();
         driver.findElement(apply_change).click();
-        if(driver.findElement(approval_no_data).isDisplayed())
+        List<WebElement> data_present = driver.findElements(approval_no_data);
+        if(data_present.isEmpty())
         {
             System.out.println("Nothing to reject");
         }
         else
         {
         driver.findElement(approval_row).click();
-        }
         driver.findElement(reject_button).click();
         driver.findElement(ok_after_reject).click();
-        driver.findElement(Ok_after_reject_comments).click();
-
+        }   
     }
    
 }

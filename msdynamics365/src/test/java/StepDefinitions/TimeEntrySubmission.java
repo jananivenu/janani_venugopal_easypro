@@ -16,8 +16,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
-
+import org.junit.Assert;
 import utils.BaseTest;
 
 public class TimeEntrySubmission extends BaseTest{
@@ -42,7 +41,7 @@ public class TimeEntrySubmission extends BaseTest{
         login.submit();
         System.out.println(driver.getCurrentUrl());
         login.AppSelection();
-        System.out.println("Navigating to the Project Operations app");      
+        Assert.assertTrue("Navigating to the Project Operations app", login.AppSelection());      
     }
  
     @And("^Clicks on the Time Entry tab$")
@@ -51,7 +50,7 @@ public class TimeEntrySubmission extends BaseTest{
         
         tab1 = new TimeEntrytab(driver);
         tab1.navigateToTimeEntrytab();
-        System.out.println("Inside time entry tab");
+        Assert.assertTrue("Inside time entry tab", tab1.navigateToTimeEntrytab());
     }
     
     @When("^User creates new Time Entry$")
@@ -69,8 +68,8 @@ public class TimeEntrySubmission extends BaseTest{
         tab.click_project_lookup();
         tab.select_project_task();
         tab.enter_description();
-        tab.save_entryand_close();
-        System.out.println("Created and saved the new Time entry");
+        Assert.assertTrue("Created and saved the new Time entry",tab.save_entryand_close());
+        
      }
 
      @Then("^Submits the entry for approval$")
@@ -80,7 +79,7 @@ public class TimeEntrySubmission extends BaseTest{
         tab2= new TimeEntrytab(driver);
         tab2.select_entry_for_submission();
         tab2.submit_entry_for_approval();
-        System.out.println("Submitted the entry for approval");
+        Assert.assertTrue("Submitted the entry for approval",tab2.submit_entry_for_approval());
 
      }
 

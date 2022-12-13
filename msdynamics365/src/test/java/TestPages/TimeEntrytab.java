@@ -56,9 +56,15 @@ public class TimeEntrytab {
         this.driver=driver;
     }
 
-    public void navigateToTimeEntrytab()
+    public boolean navigateToTimeEntrytab()
     {
-        driver.findElement(time_entry_tab).click();
+      if(driver.findElement(time_entry_tab).isEnabled())
+      {
+         driver.findElement(time_entry_tab).click();
+         return true;
+      }
+      else return false;
+        
     }
     public void create_New_timeEntry()
     {
@@ -124,10 +130,15 @@ public class TimeEntrytab {
         driver.findElement(description).sendKeys("kindly approve");
      }
      
-     public void save_entryand_close()
+     public boolean save_entryand_close()
 
      {
-        driver.findElement(save_entry).click();
+      if(driver.findElement(save_entry).isEnabled())
+        {
+         driver.findElement(save_entry).click();
+        return true;
+        }
+        else return false;
      }
      public void select_entry_for_submission()
 
@@ -143,10 +154,15 @@ public class TimeEntrytab {
          //elements.get(elements.size()-1).click();
        }
      }
-     public void submit_entry_for_approval()
+     public boolean submit_entry_for_approval()
 
      {
+      if(driver.findElement(submit_entry).isEnabled)
+      {
         driver.findElement(submit_entry).click();
+        return true;
+      }
+      else return false;
      }
 
      public boolean validate_approval()
