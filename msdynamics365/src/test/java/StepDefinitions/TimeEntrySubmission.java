@@ -41,7 +41,7 @@ public class TimeEntrySubmission extends BaseTest{
         login.submit();
         System.out.println(driver.getCurrentUrl());
         login.AppSelection();
-        Assert.assertTrue("Navigating to the Project Operations app", login.AppSelection());      
+        Assert.assertTrue("Navigating to the Project Operations app", login.project_applications_tab());      
     }
  
     @And("^Clicks on the Time Entry tab$")

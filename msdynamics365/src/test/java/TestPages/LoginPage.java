@@ -2,8 +2,11 @@ package TestPages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.server.handler.SwitchToFrame;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
 public class LoginPage {
 
@@ -12,6 +15,8 @@ public class LoginPage {
     
     By user_email= By.xpath("//input[@type='email']");
 
+    By another_acc=By.xpath("//div[text()='Use another account']");
+
     By next_button= By.xpath("//input[@value='Next']");
 
     By user_pwd=By.xpath("//input[@id='passwordInput']");
@@ -19,6 +24,10 @@ public class LoginPage {
     By signin_button=By.id("submitButton");
 
     By project_page=By.xpath("//div[text()='Project Operations']");
+
+    By iframe_app=By.xpath("//iframe[@id='AppLandingPage']");
+    
+    By project_app=By.xpath("//a[@aria-label='Project Operations']");
 
     public LoginPage(WebDriver driver)
     {
@@ -43,9 +52,10 @@ public class LoginPage {
     }
     public boolean AppSelection()
     {
-       // WebDriverWait wait = new WebDriverWait(driver,30);
-       // wait.until(ExpectedConditions.visibilityOfElementLocated(project_page));
-        driver.switchTo().frame("AppLandingPage");
+        Wait wait  = new WebDriverWait(driver, Duration.ofSeconds(100));
+        wait.until(ExpectedConditions.presenceOfElementLocated(iframe_app));
+       
+       driver.switchTo().frame("AppLandingPage");
         if((driver.findElement(project_page).isEnabled()))
         {
         driver.findElement(project_page).click();
@@ -60,6 +70,20 @@ public class LoginPage {
     {
           
        driver.findElement(user_pwd).click();
+    }
+
+    public boolean project_applications_tab()
+
+    {
+       return driver.findElement(project_app).isDisplayed();
+    }
+    public void user_login_for_validation(String email,String password)
+    {
+       driver.findElement(another_acc).click();
+       driver.findElement(user_email).sendKeys(email);
+       driver.findElement(next_button).click();
+       driver.findElement(user_pwd).sendKeys(password);
+       driver.findElement(signin_button).click();
     }
 
 }

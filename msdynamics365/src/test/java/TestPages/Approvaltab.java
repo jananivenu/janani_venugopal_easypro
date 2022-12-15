@@ -1,17 +1,12 @@
 package TestPages;
 
-import java.time.Duration;
+
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 public class Approvaltab {
 
@@ -23,7 +18,7 @@ public class Approvaltab {
     
     By group_by = By.xpath("//div[@title='Resource' and @data-id='msdyn_bookableresource']");
 
-    By filter = By.xpath("//span[text()='Filter by']");
+    By filter = By.xpath("//button[@name='Filter by']");
 
     By filter_by_value=By.xpath("//input[@aria-label='Filter by Value']");
 
@@ -47,6 +42,8 @@ public class Approvaltab {
 
     By ok_after_reject=By.xpath("//button[@data-id='ok_id']");
 
+    By confirm_reject=By.xpath("//button[data-id='okButton_3']");
+
     public Approvaltab(WebDriver driver)
     {
         this.driver=driver;
@@ -54,7 +51,7 @@ public class Approvaltab {
 
     public boolean enter_approval_tab()
     {
-        if(driver.findElement(approvals_tab).isEnabled)
+        if(driver.findElement(approvals_tab).isEnabled())
         {
         driver.findElement(approvals_tab).click(); 
         return true;
@@ -76,9 +73,10 @@ public class Approvaltab {
         driver.findElement(filter_by_value).click();
         driver.findElement(resource_name).click();
         driver.findElement(apply_change).click();
-        if(driver.findElement(approval_no_data).isDisplayed())
+        List<WebElement> data_present = driver.findElements(approval_no_data);
+        if(!data_present.isEmpty())
         {
-            System.out.println("Nothing to approve");
+            System.out.println("Nothing to reject");
         }
         else
         {
@@ -86,9 +84,7 @@ public class Approvaltab {
         driver.findElement(approval_button).click();
         driver.findElement(Ok_after_approval).click();
         }
-
     }
-
     public void timeentry_rejection()
     {
         driver.findElement(group_by).click();
@@ -97,7 +93,7 @@ public class Approvaltab {
         driver.findElement(resource_name).click();
         driver.findElement(apply_change).click();
         List<WebElement> data_present = driver.findElements(approval_no_data);
-        if(data_present.isEmpty())
+        if(!data_present.isEmpty())
         {
             System.out.println("Nothing to reject");
         }
@@ -106,7 +102,14 @@ public class Approvaltab {
         driver.findElement(approval_row).click();
         driver.findElement(reject_button).click();
         driver.findElement(ok_after_reject).click();
-        }   
-    }
+        driver.findElement(confirm_reject).click();
+       
+        }  
+    }    
+        public void sign_out()
+        {
+        driver.findElement(By.xpath("//div[@id='mectrl_headerPicture' and text()='BC']")).click();
+        driver.findElement(By.xpath("//button[@id='mectrl_body_signOut' and text()='Sign out']")).click();
+        }
    
 }

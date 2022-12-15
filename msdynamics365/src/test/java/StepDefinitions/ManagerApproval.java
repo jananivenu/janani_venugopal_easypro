@@ -7,12 +7,10 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import TestPages.Approvaltab;
 import TestPages.LoginPage;
 import TestPages.TimeEntrytab;
-import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -45,8 +43,8 @@ public class ManagerApproval extends BaseTest
             login.submit();
             System.out.println(driver.getCurrentUrl());
             login.AppSelection();
-            Assert.assertTrue("Navigating to the Project Operations app", login.AppSelection());
-            System.out.println("Navigating to the Project Operations app");   
+            Assert.assertTrue("Navigating to the Project Operations app", login.project_applications_tab());      
+             
 
     } 
 
@@ -55,15 +53,14 @@ public class ManagerApproval extends BaseTest
     public void Clicks_on_the_Approvals_tab() {
         atab = new Approvaltab(driver);
         atab.enter_approval_tab();
-        Assert.assertTrue("Entered Approvals tab",enter_approval_tab());
+        Assert.assertTrue("Entered Approvals tab",atab.enter_approval_tab());
     }
 
     @When("^User approves the submitted Time Entry$")
     public void user_approves_the_submitted_Time_Entry(){
         atab1 = new Approvaltab(driver);
         atab1.timeentry_approval();
-        driver.findElement(By.xpath("//div[@id='mectrl_headerPicture' and text()='BC']"));
-        driver.findElement(By.xpath("//button[@id='mectrl_body_signOut' and text()='Sign out']"));
+        atab1.sign_out();
         driver.navigate().refresh();
     }
 
@@ -71,19 +68,18 @@ public class ManagerApproval extends BaseTest
     public void User_Validates_the_approval_in_Time_Entry_page() {
         LoginPage login1 = new LoginPage(driver);
         driver.get(prop.getProperty("URL"));
-        login1.enteruseremail(prop.getProperty("usr_email"));
-            login1.enterNext(); 
-            login1.enterpasswordclick();
-            login1.enterpassword(prop.getProperty("usr_password"));
-            login1.submit();
-            login1.AppSelection();
+        login1.user_login_for_validation(prop.getProperty("usr_email"),prop.getProperty("usr_password"));
+        login1.AppSelection();
         tab = new TimeEntrytab(driver);
         tab.navigateToTimeEntrytab();
        if (tab.validate_approval())
        {
-        System.out.println("Approval successful and reflected");
+        System.out.println("Time sheet Approval successful and reflected");
        }
-
+       else
+       {
+        System.out.println("No action taken");
+       }
     }
 
    

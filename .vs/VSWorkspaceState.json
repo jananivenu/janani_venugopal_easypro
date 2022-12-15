@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\msdynamics365",
+    "\\msdynamics365\\.settings",
+    "\\msdynamics365\\src",
+    "\\msdynamics365\\src\\main",
+    "\\msdynamics365\\src\\main\\java",
+    "\\msdynamics365\\src\\test",
+    "\\msdynamics365\\src\\test\\java",
+    "\\msdynamics365\\src\\test\\java\\TestPages"
+  ],
+  "SelectedNode": "\\msdynamics365\\src\\test\\java\\TestPages\\Approvaltab.java",
+  "PreviewInSolutionExplorer": false
+}

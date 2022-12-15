@@ -8,12 +8,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import utils.DateUtil;
+
 public class TimeEntrytab {
     
     WebDriver driver;
     
+    DateUtil du =new DateUtil();
 
-    By time_entry_tab=By.xpath("//span[text()='Time Entries']");
+    By time_entry_tab=By.xpath("//span/img[@title='Time Entries']");
     
     By New_timeEntry= By.xpath("//span[text()='New']");
 
@@ -45,11 +48,13 @@ public class TimeEntrytab {
 
     By save_entry= By.xpath("//span[text()='Save and Close']");
 
-    By select_entry=By.xpath("//button[contains(@aria-label,'Select all values in a row')]");
+    By select_entry=By.xpath("//button[@aria-label='Select All']");
      
     By submit_entry=By.xpath("//button[@name='Submit']");
 
-    By approval_status=By.xpath("//div[contains(@aria-label,'Entry Status Approved')]");
+    By approval_status=By.xpath("//div[contains(@aria-label,'Entry Status Entry Status Returned')]");
+
+    By rejection_status=By.xpath("//div[contains(@aria-label,'Entry Status Approved')]");
 
     public TimeEntrytab(WebDriver driver)
     {
@@ -68,12 +73,16 @@ public class TimeEntrytab {
     }
     public void create_New_timeEntry()
     {
-     driver.findElement(New_timeEntry).click();
+      driver.switchTo().frame(driver.findElement(By.xpath(" //iframe[@aria-label='Time Entry Grid']")));
+
+      driver.findElement(New_timeEntry).click();
+      driver.switchTo().defaultContent();
     }
      public void set_start_date()
      {
       driver.findElement(start_date).clear();
-      driver.findElement(start_date).sendKeys("09-12-2022");
+      driver.findElement(start_date).sendKeys(du.formatDate());
+      driver.findElement(start_date).sendKeys(Keys.ENTER);
      }   
      public void set_start_time()
      {
@@ -83,8 +92,10 @@ public class TimeEntrytab {
      public void set_end_date()
      {
       driver.findElement(end_date).clear();
-      driver.findElement(end_date).sendKeys("09-12-2022");
+      driver.findElement(end_date).sendKeys(du.formatDate());
+      driver.findElement(start_date).sendKeys(Keys.ENTER);
      }   
+       
      public void set_end_time()
      {
       driver.findElement(end_time).clear();
@@ -102,6 +113,7 @@ public class TimeEntrytab {
      public void click_project_lookup()
      {
        driver.findElement(project_lookup).click();
+       driver.findElement(project_lookup).clear();
        driver.findElement(project_lookup).sendKeys("sail inc");
        Actions act = new Actions(driver);
        act.keyDown(Keys.ENTER);
@@ -114,6 +126,8 @@ public class TimeEntrytab {
      }
      public void  select_project_task()
      {
+      driver.findElement(project_task).click();
+      driver.findElement(project_task).clear();
         driver.findElement(project_task)
         .sendKeys("design");
         Actions act = new Actions(driver);
@@ -143,29 +157,32 @@ public class TimeEntrytab {
      public void select_entry_for_submission()
 
      {
-        List<WebElement> tableElement = driver.findElements(select_entry); // findElements will return a list of table elements
-         for (WebElement webElement : tableElement) 
-       {
-         System.out.println("inside checkbox");
-          //rowData is the data value which we are looking for to perform operation on
-         webElement.click();
-         //elements = driver.findElements(select_entry);
+         driver.switchTo().frame(driver.findElement(By.xpath(" //iframe[@aria-label='Time Entry Grid']")));
+         driver.findElement(select_entry).click();
+         driver.switchTo().defaultContent();
 
-         //elements.get(elements.size()-1).click();
-       }
+
+      
      }
      public boolean submit_entry_for_approval()
 
      {
-      if(driver.findElement(submit_entry).isEnabled)
+      driver.switchTo().frame(driver.findElement(By.xpath(" //iframe[@aria-label='Time Entry Grid']")));
+      if(driver.findElement(submit_entry).isEnabled())
       {
         driver.findElement(submit_entry).click();
+        driver.switchTo().defaultContent();
+
         return true;
       }
       else return false;
      }
 
      public boolean validate_approval()
+     {
+         return driver.findElement(approval_status).isDisplayed();
+     }
+     public boolean validate_rejection()
      {
          return driver.findElement(approval_status).isDisplayed();
      }
