@@ -48,7 +48,7 @@ public class TimeEntrytab {
 
     By save_entry= By.xpath("//span[text()='Save and Close']");
 
-    By select_entry=By.xpath("//button[@aria-label='Select All']");
+    By select_entry=By.xpath("//button[contains(@aria-label,'Select All']");
      
     By submit_entry=By.xpath("//button[@name='Submit']");
 
@@ -82,7 +82,7 @@ public class TimeEntrytab {
      {
       driver.findElement(start_date).clear();
       driver.findElement(start_date).sendKeys(du.formatDate());
-      driver.findElement(start_date).sendKeys(Keys.ENTER);
+      //driver.findElement(start_date).sendKeys(Keys.ENTER);
      }   
      public void set_start_time()
      {
@@ -93,7 +93,7 @@ public class TimeEntrytab {
      {
       driver.findElement(end_date).clear();
       driver.findElement(end_date).sendKeys(du.formatDate());
-      driver.findElement(start_date).sendKeys(Keys.ENTER);
+      //driver.findElement(start_date).sendKeys(Keys.ENTER);
      }   
        
      public void set_end_time()
@@ -112,8 +112,7 @@ public class TimeEntrytab {
      }
      public void click_project_lookup()
      {
-       driver.findElement(project_lookup).click();
-       driver.findElement(project_lookup).clear();
+      driver.findElement(project_lookup).click();
        driver.findElement(project_lookup).sendKeys("sail inc");
        Actions act = new Actions(driver);
        act.keyDown(Keys.ENTER);
@@ -127,9 +126,8 @@ public class TimeEntrytab {
      public void  select_project_task()
      {
       driver.findElement(project_task).click();
-      driver.findElement(project_task).clear();
         driver.findElement(project_task)
-        .sendKeys("design");
+        .sendKeys("Design Development");
         Actions act = new Actions(driver);
         act.keyDown(Keys.ENTER);
         act.keyUp(Keys.ENTER);

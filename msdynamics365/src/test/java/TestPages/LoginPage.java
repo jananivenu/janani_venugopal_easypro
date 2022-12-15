@@ -40,7 +40,7 @@ public class LoginPage {
     }
     public void enterNext()
     {
-        driver.findElement(next_button).click();;
+        driver.findElement(next_button).click();
     }
     public void enterpassword(String password)
     {
@@ -52,8 +52,6 @@ public class LoginPage {
     }
     public boolean AppSelection()
     {
-        Wait wait  = new WebDriverWait(driver, Duration.ofSeconds(100));
-        wait.until(ExpectedConditions.presenceOfElementLocated(iframe_app));
        
        driver.switchTo().frame("AppLandingPage");
         if((driver.findElement(project_page).isEnabled()))
